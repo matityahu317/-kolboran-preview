@@ -795,6 +795,55 @@
 }
 </style>
 
+
+<style id="site-building-modal-style">
+.site-building-modal{
+  position:fixed;inset:0;z-index:1200;display:none;
+  align-items:center;justify-content:center;padding:18px;
+  background:rgba(12,23,47,.76);backdrop-filter:blur(7px);
+  direction:rtl;
+}
+.site-building-modal.open{display:flex}
+.site-building-box{
+  width:min(620px,96vw);background:linear-gradient(145deg,#fffdf8,#fff8ed);
+  border:1px solid #eadfce;border-radius:28px;padding:40px 28px 30px;
+  text-align:center;box-shadow:0 28px 90px rgba(10,26,58,.30);position:relative;
+}
+.site-building-close{
+  position:absolute;left:14px;top:14px;width:42px;height:42px;border:0;
+  border-radius:50%;background:#fff;color:#17315f;font-size:27px;
+  box-shadow:0 6px 18px rgba(0,0,0,.10);cursor:pointer;
+}
+.site-building-icon{
+  width:82px;height:82px;border-radius:24px;margin:0 auto 15px;
+  display:grid;place-items:center;font-size:40px;background:#fff0f4;
+}
+.site-building-box h2{
+  margin:0 0 13px;color:#17315f;font-size:31px;font-weight:1000;
+}
+.site-building-box p{
+  margin:0 auto;color:#56647a;font-size:18px;line-height:1.8;max-width:500px;
+  font-weight:800;
+}
+.site-building-phone{
+  display:block;direction:ltr;margin:18px auto 14px;
+  font-size:30px;font-weight:1000;color:#17315f;
+}
+.site-building-wa{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:min(370px,100%);margin:auto;padding:14px 18px;border-radius:999px;
+  background:#25d366;color:#fff;font-size:16px;font-weight:1000;
+  box-shadow:0 10px 25px rgba(37,211,102,.23);
+}
+@media(max-width:560px){
+  .site-building-modal{padding:12px}
+  .site-building-box{padding:52px 18px 28px;border-radius:23px}
+  .site-building-box h2{font-size:27px}
+  .site-building-box p{font-size:16px}
+  .site-building-phone{font-size:28px}
+}
+</style>
+
 </head>
 <body>
 
@@ -2152,6 +2201,79 @@ function closeCatalogRequest(){
 }
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape') closeCatalogRequest();
+});
+</script>
+
+
+<div id="siteBuildingModal" class="site-building-modal" onclick="if(event.target===this)closeSiteBuildingModal()">
+  <div class="site-building-box" role="dialog" aria-modal="true" aria-labelledby="siteBuildingTitle">
+    <button type="button" class="site-building-close" onclick="closeSiteBuildingModal()" aria-label="סגירה">×</button>
+    <div class="site-building-icon">🚧</div>
+    <h2 id="siteBuildingTitle">האתר נמצא כרגע בהקמה</h2>
+    <p>
+      בקרוב האתר ישודרג ויעלה עם כל המוצרים שלנו.<br>
+      לבינתיים אפשר לפנות לערן להצעות מחיר ולקטלוגים.
+    </p>
+    <a class="site-building-phone" href="https://wa.me/972508880832?text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%9B%D7%9C%20%D7%91%D7%95%20%D7%A8%D7%9F%20-%D7%9C%D7%92%D7%9F%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%93%D7%A8%D7%9A%20%D7%94%D7%90%D7%AA%D7%A8%0A%D7%90%D7%A4%D7%A9%D7%A8%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%91%D7%91%D7%A7%D7%A9%D7%94%20%D7%A7%D7%98%D7%9C%D7%95%D7%92%20%D7%9E%D7%95%D7%A6%D7%A8%D7%99%D7%9D%20%D7%95%D7%94%D7%A6%D7%A2%D7%AA%20%D7%9E%D7%97%D7%99%D7%A8" target="_blank" rel="noopener">050-8880832</a>
+    <a class="site-building-wa" href="https://wa.me/972508880832?text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%9B%D7%9C%20%D7%91%D7%95%20%D7%A8%D7%9F%20-%D7%9C%D7%92%D7%9F%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%93%D7%A8%D7%9A%20%D7%94%D7%90%D7%AA%D7%A8%0A%D7%90%D7%A4%D7%A9%D7%A8%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%91%D7%91%D7%A7%D7%A9%D7%94%20%D7%A7%D7%98%D7%9C%D7%95%D7%92%20%D7%9E%D7%95%D7%A6%D7%A8%D7%99%D7%9D%20%D7%95%D7%94%D7%A6%D7%A2%D7%AA%20%D7%9E%D7%97%D7%99%D7%A8" target="_blank" rel="noopener">💬 פנייה לערן ב־WhatsApp</a>
+  </div>
+</div>
+
+
+<script id="site-building-modal-script">
+function openSiteBuildingModal(){
+  const m=document.getElementById('siteBuildingModal');
+  if(!m)return;
+  m.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeSiteBuildingModal(){
+  const m=document.getElementById('siteBuildingModal');
+  if(!m)return;
+  m.classList.remove('open');
+  document.body.style.overflow='';
+}
+
+/* Top navigation buttons marked as not-yet-active */
+document.addEventListener('click',function(e){
+  const target=e.target.closest('.nav-categories,.nav-products,.nav-new');
+  if(target){
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    openSiteBuildingModal();
+  }
+},true);
+
+/* Bottom "קטגוריות" and "מועדפים" */
+document.addEventListener('click',function(e){
+  const target=e.target.closest('#bottomNav a[href="#categories"],#bottomNav a[href="#products"]');
+  if(target){
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    openSiteBuildingModal();
+  }
+},true);
+
+/* Desktop/mobile top search box shown in the screenshot */
+document.addEventListener('click',function(e){
+  const target=e.target.closest('.head .search,.mobile-exact-skin .real-search');
+  if(target){
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    try{target.blur?.()}catch(_){}
+    openSiteBuildingModal();
+  }
+},true);
+
+document.addEventListener('focusin',function(e){
+  if(e.target.matches('.head .search input,.mobile-exact-skin .real-search')){
+    try{e.target.blur()}catch(_){}
+    openSiteBuildingModal();
+  }
+});
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape')closeSiteBuildingModal();
 });
 </script>
 
