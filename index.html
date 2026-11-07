@@ -867,8 +867,19 @@
 }
 </style>
 
+<style id="accessibility-privacy-css">
+/* Accessibility and privacy upgrade – 2026-11-07 */
+:focus-visible{outline:3px solid #155eef!important;outline-offset:3px!important}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.skip-to-content{position:fixed;right:12px;top:-90px;z-index:2000;background:#fff;color:#17315f;border:2px solid #17315f;padding:12px 18px;border-radius:12px;font-weight:900}.skip-to-content:focus{top:12px}
+.legal-links{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:14px}.legal-links button{background:transparent;color:#fff;border:1px solid #b4c4e0;border-radius:10px;padding:8px 12px;font-weight:700;text-decoration:underline}
+.legal-dialog{position:fixed;inset:0;z-index:1800;background:rgba(8,22,49,.8);display:none;align-items:center;justify-content:center;padding:15px}.legal-dialog.open{display:flex}.legal-panel{position:relative;background:#fffdf8;color:#17315f;width:min(760px,100%);max-height:90dvh;overflow:auto;border-radius:20px;padding:28px 24px;line-height:1.85;box-shadow:0 20px 80px #0005}.legal-panel h2{font-size:25px;margin:0 0 12px}.legal-panel h3{font-size:18px;margin:18px 0 4px}.legal-panel p{margin:8px 0}.legal-panel a{color:#174c9a;text-decoration:underline}.legal-close{float:left;background:#17315f;color:white;border:0;border-radius:10px;padding:8px 14px;font-weight:800;margin-bottom:10px}
+.hot:focus-visible,.entry-promo-close:focus-visible,.entry-promo-continue:focus-visible{outline:4px solid #155eef!important;outline-offset:-3px!important;background:#ffffff55!important}
+@media(max-width:700px){.mockup-img{pointer-events:none}}
+</style>
 </head>
 <body>
+<a class="skip-to-content" href="#storeApp">דלג לתוכן הראשי</a>
 
 <input id="entryPromoToggle" class="entry-promo-toggle" type="checkbox" hidden>
 <div id="entryPromo" class="entry-promo" role="dialog" aria-modal="true" aria-label="הודעת אתר בהקמה">
@@ -901,7 +912,7 @@
   <input name="submitted_at">
 </form>
 
-<div id="storeApp" class="site">
+<div id="storeApp" tabindex="-1" class="site">
 <div id="mobileExactSkin" class="mobile-exact-skin">
   <div class="mockup-wrap">
     <a class="v12-address" href="https://www.waze.com/ul?q=הפלמ״ח%2020%2C%20אשדוד&navigate=yes" target="_blank" rel="noopener" aria-label="ניווט בוויז להפלמ״ח 20 אשדוד">📍 הפלמ״ח 20, אשדוד · לחצו לניווט ב-Waze</a>
@@ -1081,7 +1092,7 @@
     <div><div class="brandtext">כל בו רן - לגן</div><p>פתרונות מושלמים לגן מושלם</p></div>
     <a href="https://wa.me/972508880832" target="_blank">ייעוץ והזמנות בוואטסאפ<br>050-8880832</a>
   </section>
-  <footer class="footer">כל בו רן - לגן · ציוד לגני ילדים ומוסדות · א׳–ה׳ 09:00–19:00 · ו׳ 09:00–13:00 · 08-8566040 · 050-8880832</footer>
+  <footer class="footer">כל בו רן - לגן · ציוד לגני ילדים ומוסדות · א׳–ה׳ 09:00–19:00 · ו׳ 09:00–13:00 · 08-8566040 · 050-8880832<div class="legal-links"><button type="button" onclick="openLegalDialog('accessibility')">הצהרת נגישות</button><button type="button" onclick="openLegalDialog('privacy')">מדיניות פרטיות ועוגיות</button></div></footer>
 </div>
 <a id="floatWa" class="floatwa" href="https://wa.me/972508880832" target="_blank">💬</a>
 <nav id="bottomNav" class="bottomnav">
@@ -2318,6 +2329,46 @@ document.addEventListener('keydown',function(e){
 });
 </script>
 
+
+<div id="legalDialog" class="legal-dialog" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="legalDialogTitle">
+ <div class="legal-panel" tabindex="-1"><button type="button" class="legal-close" id="legalClose" onclick="closeLegalDialog()">סגירה ✕</button><div id="legalDialogBody"></div></div>
+</div>
+<script id="accessibility-privacy-js">
+(function(){
+ 'use strict';
+ const policies={
+ accessibility:`<h2 id="legalDialogTitle">הצהרת נגישות – כל בו רן - לגן</h2>
+ <p>אנו פועלים להנגיש את האתר והשירותים שלנו לאנשים עם מוגבלות, כדי לאפשר שימוש נוח ושוויוני.</p>
+ <h3>התאמות באתר</h3><p>באתר הוטמעו שיפורי ניווט במקלדת, סימון מיקוד, תוויות לרכיבי פעולה, התאמות לתנועה מופחתת ותמיכה בטכנולוגיות מסייעות. ייתכן שעדיין קיימים רכיבים הדורשים שיפור; האתר טרם עבר בדיקת התאמה חיצונית מלאה ואין בהצהרה זו אישור עמידה בתקן.</p>
+ <h3>הסדרי נגישות בחנות</h3><p>כתובת: הפלמ״ח 20, אשדוד. לפי המידע שנמסר מבית העסק, הכניסה לחנות היא במפלס ללא מדרגות וללא צורך ברמפה, ומאפשרת כניסה בכיסא גלגלים. הקופה ממוקמת בסמוך לכניסה וניתן להגיע אליה בכיסא גלגלים. בשל שטחה הקטן של החנות והמעברים הצרים, לא מתאפשרת תנועה חופשית וסיבוב בכיסא גלגלים בכל שטחי החנות. לקוחות המשתמשים בכיסא גלגלים יכולים לקבל שירות בקופה שבכניסה, ועובד החנות יכול להביא אליהם מוצרים מהמעברים שאינם נגישים לתנועה בכיסא גלגלים. ניתן לבקש סיוע במקום או ליצור קשר מראש בטלפון 08-8566040. טרם נבדקו באופן מקצועי רוחבי המעברים, מידות הקופה והסדרי החניה. פרסום המידע אינו מהווה אישור לעמידה בדרישות הנגישות הפיזית.</p>
+ <h3>דיווח על קושי וקבלת סיוע</h3><p>אם נתקלתם בקושי בשימוש באתר או שאתם זקוקים למידע בפורמט נגיש, פנו אלינו בטלפון <a href="tel:088566040">08-8566040</a>, בוואטסאפ <a href="https://wa.me/972508880832">050-8880832</a> או בדוא״ל <a href="mailto:k.b.r.lagan@gmail.com">k.b.r.lagan@gmail.com</a>. אנא ציינו באיזה עמוד או פעולה נתקלתם בקושי ובאיזו טכנולוגיה השתמשתם, אם אפשר.</p>
+ <p><small>עודכן: 7.11.2026. ההצהרה תעודכן לאחר בדיקה מקצועית ואימות הסדרי הנגישות הפיזיים.</small></p>`,
+ privacy:`<h2 id="legalDialogTitle">מדיניות פרטיות ועוגיות – כל בו רן - לגן</h2>
+ <p>האתר מופעל עבור כל בו רן - לגן, הפלמ״ח 20, אשדוד. ניתן לפנות בנושאי פרטיות בדוא״ל <a href="mailto:k.b.r.lagan@gmail.com">k.b.r.lagan@gmail.com</a> או בטלפון <a href="tel:088566040">08-8566040</a>.</p>
+ <h3>מידע שנמסר ביוזמתכם</h3><p>בעת יצירת קשר, בקשת קטלוג או הצעת מחיר, ייתכן שתמסרו שם, מספר טלפון, כתובת דוא״ל ותוכן פנייה. המידע משמש למענה לפנייה, למתן שירות ולטיפול בבקשה. מסירת הפרטים היא לבחירתכם, אך בלעדיהם ייתכן שלא נוכל לחזור אליכם.</p>
+ <h3>שירותים חיצוניים</h3><p>לחיצה על קישורי WhatsApp, Facebook, Instagram, Waze או שירותים אחרים עשויה להעביר אתכם לשירות חיצוני הכפוף למדיניות הפרטיות שלו. שירותי אחסון, טפסים ומערכות ניהול האתר עשויים לעבד מידע טכני הנדרש לתפעול השירות.</p>
+ <h3>אחסון מקומי ועוגיות</h3><p>האתר עשוי להשתמש באחסון מקומי לצורך תפעול פונקציות כגון סל בקשות. ספקי אחסון ושירותים חיצוניים עשויים לעבד נתונים טכניים. בגרסה זו לא הוסף על ידינו כלי פרסום או אנליטיקה חדש המחייב הפעלת עוגיות שיווקיות; אם יופעלו שירותי מעקב לא חיוניים, נבחן צורך במנגנון הסכמה לפני הפעלתם.</p>
+ <h3>שמירה, אבטחה וזכויות</h3><p>נשתמש במידע למטרות שצוינו ונשמור אותו בהתאם לצורך התפעולי ולחובות הדין. ניתן לפנות בבקשה לעיון במידע אישי או לתיקונו, בהתאם לדין. אין להעביר מידע רגיש באמצעות טופסי הפנייה באתר.</p>
+ <p><small>עודכן: 7.11.2026. יש לאמת מדיניות זו מול שירותי האחסון, הטפסים והמעקב הפעילים בסביבת הפרסום לפני העלאה לאוויר.</small></p>`
+ };
+ let previousFocus=null;
+ window.openLegalDialog=function(kind){const dialog=document.getElementById('legalDialog');if(!dialog)return;previousFocus=document.activeElement;document.getElementById('legalDialogBody').innerHTML=policies[kind]||policies.privacy;dialog.classList.add('open');dialog.setAttribute('aria-hidden','false');document.getElementById('legalClose').focus();};
+ window.closeLegalDialog=function(){const dialog=document.getElementById('legalDialog');dialog.classList.remove('open');dialog.setAttribute('aria-hidden','true');if(previousFocus&&previousFocus.isConnected)previousFocus.focus();};
+ document.getElementById('legalDialog')?.addEventListener('click',e=>{if(e.target.id==='legalDialog')closeLegalDialog()});
+ document.addEventListener('keydown',e=>{const dialog=document.getElementById('legalDialog');if(!dialog?.classList.contains('open'))return;if(e.key==='Escape'){e.preventDefault();closeLegalDialog();return;}if(e.key==='Tab'){const focusables=[...dialog.querySelectorAll('a[href],button:not([disabled]),input:not([disabled])')];if(!focusables.length)return;const first=focusables[0],last=focusables[focusables.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}},true);
+ // Transparent image hotspots must be named for screen readers.
+ const names={'phone':'התקשרו לחנות','whatsapp-top':'פתיחת וואטסאפ','whatsapp-main':'בקשת קטלוג בוואטסאפ','nav-home':'דף הבית','nav-categories':'קטגוריות','nav-products':'מבצעים','nav-new':'מוצרים חדשים','nav-about':'אודות העסק','nav-contact':'יצירת קשר','nav-contact-real':'יצירת קשר','cat1':'פתיחת קטגוריה ראשונה','cat2':'פתיחת קטגוריה שנייה','cat3':'פתיחת קטגוריה שלישית','cat4':'פתיחת קטגוריה רביעית'};
+ document.querySelectorAll('.hot').forEach(el=>{for(const [cls,label] of Object.entries(names)){if(el.classList.contains(cls)){if(!el.getAttribute('aria-label'))el.setAttribute('aria-label',label);break;}}if(!['A','BUTTON','INPUT'].includes(el.tagName)){el.setAttribute('role','button');el.setAttribute('tabindex','0');el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click()}})}});
+ document.querySelectorAll('.entry-promo-close,.entry-promo-continue').forEach((el,i)=>el.setAttribute('aria-label',i?'המשך לאתר':'סגירת הודעת פתיחה'));
+ document.querySelectorAll('a[target="_blank"]').forEach(a=>{a.rel='noopener noreferrer';if(!a.getAttribute('aria-label')&&(!a.textContent||a.textContent.trim().length<3))a.setAttribute('aria-label','פתיחת קישור חיצוני בחלון חדש')});
+ document.querySelectorAll('img:not([alt])').forEach(img=>img.setAttribute('alt',''));
+ const mock=document.querySelector('.mockup-img');if(mock)mock.setAttribute('alt','תצוגה גרפית של דף הבית; הקישורים והפעולות מופיעים מעליה');
+ const float=document.getElementById('floatWa');if(float)float.setAttribute('aria-label','פתיחת שיחה בוואטסאפ עם כל בו רן - לגן');
+ const search=document.querySelector('.real-search');if(search&&!search.getAttribute('aria-label'))search.setAttribute('aria-label','חיפוש באתר');
+ // Keep accessible names on icon-only buttons.
+ document.querySelectorAll('button').forEach(b=>{if(b.getAttribute('aria-label'))return;const t=(b.textContent||'').trim();if(t==='×'||t==='✕')b.setAttribute('aria-label','סגירה')});
+})();
+</script>
 </body>
 </html>
 
@@ -2769,5 +2820,42 @@ async function hydrateTablesChairsSupplierProducts(){
 }
 </script>
 
+<style id="a11y-hardening-2026">
+/* Accessibility hardening 2026-11-07 */
+:where(a,button,input,select,textarea,[role="button"],[tabindex="0"]):focus-visible{outline:3px solid #123d9b!important;outline-offset:3px!important;box-shadow:0 0 0 5px #fff!important}
+:where(.hot,.real-search):focus-visible{background:rgba(255,255,255,.45)!important;outline:3px solid #123d9b!important;outline-offset:-2px!important}
+:where(.catalog-card,.gallery-item,.card .pic,.card h3):focus-visible{outline:3px solid #123d9b!important;outline-offset:3px!important}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(forced-colors:active){:where(a,button,input):focus-visible{outline:3px solid Highlight!important}}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.accessible-shortcuts{position:fixed;right:12px;top:12px;z-index:10000;transform:translateY(-170%);background:#fff;color:#17315f;padding:12px 16px;border:3px solid #17315f;border-radius:8px;font-weight:bold}
+.accessible-shortcuts:focus{transform:none}
+@media(max-width:700px){.accessible-text-nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;padding:12px;background:#fff;border-bottom:1px solid #e4dacc}.accessible-text-nav a{border:1px solid #17315f;border-radius:10px;padding:9px 12px;font-weight:700}}
+@media(min-width:701px){.accessible-text-nav{display:none}}
+</style>
+<script id="a11y-hardening-js">
+/* Non-invasive accessibility behavior layer. */
+(function(){'use strict';
+const modalSelectors=['.entry-promo','.product-search-modal','.furniture-subcat-modal','.gallery-modal','.lightbox','.contact-modal','.about-modal','.product-modal','.cart-panel','.site-building-modal','.halilit-zoom','#legalDialog'];
+const selector=modalSelectors.join(',');
+const names={'entryPromo':'הודעת מבצע','productSearchModal':'חיפוש מוצרים','furnitureSubcatModal':'קטגוריות ריהוט','galleryModal':'גלריית קטלוג','lightbox':'תצוגת תמונה מוגדלת','contactModal':'יצירת קשר','aboutModal':'אודות החנות','productModal':'פרטי מוצר','categoryProductsModal':'מוצרי קטגוריה','cartPanel':'סל הזמנה','siteBuildingModal':'מידע על האתר','legalDialog':'מידע משפטי'};
+let active=null, priorFocus=null, observing=false;
+const isVisible=el=>{if(!el||el.classList.contains('hidden')||el.getAttribute('aria-hidden')==='true')return false;const st=getComputedStyle(el);return st.display!=='none'&&st.visibility!=='hidden'&&el.getClientRects().length>0};
+const focusables=el=>[...el.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]):not([type="hidden"]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])')].filter(x=>isVisible(x)&&!x.closest('[inert]'));
+function label(el){if(!el.hasAttribute('role'))el.setAttribute('role','dialog');el.setAttribute('aria-modal','true');if(!el.hasAttribute('aria-labelledby')&&!el.hasAttribute('aria-label')){const h=el.querySelector('h1,h2,h3');if(h){if(!h.id)h.id='a11y-heading-'+(el.id||Math.random().toString(36).slice(2));el.setAttribute('aria-labelledby',h.id)}else el.setAttribute('aria-label',names[el.id]||'חלונית מידע')}}
+function sync(){const opened=[...document.querySelectorAll(selector)].filter(isVisible);const top=opened[opened.length-1]||null;if(top===active)return;if(top){if(!active)priorFocus=document.activeElement;active=top;label(top);const target=focusables(top)[0]||top;if(target===top)top.tabIndex=-1;target.focus({preventScroll:true})}else{active=null;if(priorFocus&&priorFocus.isConnected&&typeof priorFocus.focus==='function')priorFocus.focus({preventScroll:true});priorFocus=null}}
+document.addEventListener('keydown',e=>{if(!active)return;if(e.key==='Tab'){const f=focusables(active);if(!f.length){e.preventDefault();active.focus();return}const i=f.indexOf(document.activeElement);if(e.shiftKey&&(i<=0)){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&(i===f.length-1||i===-1)){e.preventDefault();f[0].focus()}}else if(e.key==='Escape'){const close=active.querySelector('[class*="close"],button[aria-label*="סגור"],button[aria-label*="סגיר"]');if(close){e.preventDefault();close.click()}}},true);
+function improve(){
+ document.querySelectorAll('button').forEach(b=>{if(!b.getAttribute('aria-label')&&!b.getAttribute('aria-labelledby')&&!b.textContent.trim()){const cl=b.className||'';b.setAttribute('aria-label',/close|סגור/.test(cl)?'סגירת חלונית':/search/.test(cl)?'חיפוש':'הפעלת פעולה')}});
+ document.querySelectorAll('input,textarea,select').forEach(i=>{if(i.type==='hidden'||i.getAttribute('aria-label')||i.getAttribute('aria-labelledby')||i.labels?.length)return;const text=i.getAttribute('placeholder')||i.getAttribute('title')||i.name||'שדה להזנת פרטים';i.setAttribute('aria-label',text)});
+ document.querySelectorAll('img:not([alt])').forEach(i=>i.alt=i.getAttribute('title')||'');
+ document.querySelectorAll('.catalog-card,.gallery-item,.card .pic,.card h3').forEach(el=>{if(el.matches('a,button')||el.closest('a,button')||!el.onclick&&!el.hasAttribute('onclick'))return;el.tabIndex=0;el.setAttribute('role','button');el.setAttribute('aria-label',el.getAttribute('aria-label')||el.closest('.card,.catalog-card,.gallery-item')?.querySelector('h3,.gallery-note')?.textContent?.trim()||'הצגת פרטים');if(!el.dataset.a11yKey){el.dataset.a11yKey='1';el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click()}})}});
+ document.querySelectorAll('.hot').forEach(el=>{if(!el.getAttribute('aria-label'))el.setAttribute('aria-label',el.title||'ניווט באתר')});
+ document.querySelectorAll('a[target="_blank"]').forEach(a=>{a.rel='noopener noreferrer'});
+}
+let scheduled=false;function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;improve();sync()})}
+document.addEventListener('DOMContentLoaded',()=>{improve();sync();const ob=new MutationObserver(m=>{if(m.some(x=>x.type==='childList'||x.attributeName==='class'||x.attributeName==='style'||x.attributeName==='aria-hidden'))schedule()});ob.observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['class','style','aria-hidden']})});
+})();
+</script>
 </body>
 </html>
