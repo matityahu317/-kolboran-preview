@@ -2836,7 +2836,7 @@ async function hydrateTablesChairsSupplierProducts(){
 <script id="a11y-hardening-js">
 /* Non-invasive accessibility behavior layer. */
 (function(){'use strict';
-const modalSelectors=['.entry-promo','.product-search-modal','.furniture-subcat-modal','.gallery-modal','.lightbox','.contact-modal','.about-modal','.product-modal','.cart-panel','.site-building-modal','.halilit-zoom','#legalDialog'];
+const modalSelectors=['.entry-promo','.product-search-modal','.furniture-subcat-modal','.gallery-modal','.lightbox','.contact-modal','.about-modal','.product-modal','#categoryProductsModal','.cart-panel','.site-building-modal','.halilit-zoom','#legalDialog'];
 const selector=modalSelectors.join(',');
 const names={'entryPromo':'הודעת מבצע','productSearchModal':'חיפוש מוצרים','furnitureSubcatModal':'קטגוריות ריהוט','galleryModal':'גלריית קטלוג','lightbox':'תצוגת תמונה מוגדלת','contactModal':'יצירת קשר','aboutModal':'אודות החנות','productModal':'פרטי מוצר','categoryProductsModal':'מוצרי קטגוריה','cartPanel':'סל הזמנה','siteBuildingModal':'מידע על האתר','legalDialog':'מידע משפטי'};
 let active=null, priorFocus=null, observing=false;
@@ -2846,7 +2846,7 @@ function label(el){if(!el.hasAttribute('role'))el.setAttribute('role','dialog');
 function sync(){const opened=[...document.querySelectorAll(selector)].filter(isVisible);const top=opened[opened.length-1]||null;if(top===active)return;if(top){if(!active)priorFocus=document.activeElement;active=top;label(top);const target=focusables(top)[0]||top;if(target===top)top.tabIndex=-1;target.focus({preventScroll:true})}else{active=null;if(priorFocus&&priorFocus.isConnected&&typeof priorFocus.focus==='function')priorFocus.focus({preventScroll:true});priorFocus=null}}
 document.addEventListener('keydown',e=>{if(!active)return;if(e.key==='Tab'){const f=focusables(active);if(!f.length){e.preventDefault();active.focus();return}const i=f.indexOf(document.activeElement);if(e.shiftKey&&(i<=0)){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&(i===f.length-1||i===-1)){e.preventDefault();f[0].focus()}}else if(e.key==='Escape'){const close=active.querySelector('[class*="close"],button[aria-label*="סגור"],button[aria-label*="סגיר"]');if(close){e.preventDefault();close.click()}}},true);
 function improve(){
- document.querySelectorAll('button').forEach(b=>{if(!b.getAttribute('aria-label')&&!b.getAttribute('aria-labelledby')&&!b.textContent.trim()){const cl=b.className||'';b.setAttribute('aria-label',/close|סגור/.test(cl)?'סגירת חלונית':/search/.test(cl)?'חיפוש':'הפעלת פעולה')}});
+ document.querySelectorAll('button').forEach(b=>{if(!b.getAttribute('aria-label')&&!b.getAttribute('aria-labelledby')&&!b.textContent.trim()){const cl=b.className||'';b.setAttribute('aria-label',/close|סגור/.test(cl)?'סגירת חלונית':/search/.test(cl)?'חיפוש':'כפתור פעולה')}});
  document.querySelectorAll('input,textarea,select').forEach(i=>{if(i.type==='hidden'||i.getAttribute('aria-label')||i.getAttribute('aria-labelledby')||i.labels?.length)return;const text=i.getAttribute('placeholder')||i.getAttribute('title')||i.name||'שדה להזנת פרטים';i.setAttribute('aria-label',text)});
  document.querySelectorAll('img:not([alt])').forEach(i=>i.alt=i.getAttribute('title')||'');
  document.querySelectorAll('.catalog-card,.gallery-item,.card .pic,.card h3').forEach(el=>{if(el.matches('a,button')||el.closest('a,button')||!el.onclick&&!el.hasAttribute('onclick'))return;el.tabIndex=0;el.setAttribute('role','button');el.setAttribute('aria-label',el.getAttribute('aria-label')||el.closest('.card,.catalog-card,.gallery-item')?.querySelector('h3,.gallery-note')?.textContent?.trim()||'הצגת פרטים');if(!el.dataset.a11yKey){el.dataset.a11yKey='1';el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click()}})}});
@@ -2855,6 +2855,43 @@ function improve(){
 }
 let scheduled=false;function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;improve();sync()})}
 document.addEventListener('DOMContentLoaded',()=>{improve();sync();const ob=new MutationObserver(m=>{if(m.some(x=>x.type==='childList'||x.attributeName==='class'||x.attributeName==='style'||x.attributeName==='aria-hidden'))schedule()});ob.observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['class','style','aria-hidden']})});
+})();
+</script>
+
+<style id="a11y-phase2-20261107">
+/* Phase 2: persistent textual navigation on image-based mobile home page. */
+@media(max-width:700px){
+ .a11y-mobile-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:12px 10px;background:#fff;border-bottom:1px solid #d4d9e2}
+ .a11y-mobile-nav a,.a11y-mobile-nav button{font:700 14px Arial,sans-serif;border:2px solid #17315f;border-radius:10px;padding:10px 12px;background:#fff;color:#17315f;min-height:44px}
+}
+@media(min-width:701px){.a11y-mobile-nav{display:none}}
+/* Avoid obscuring focus beneath fixed bottom navigation. */
+html{scroll-padding-bottom:100px}
+:where(a,button,input,select,textarea,[role="button"]){scroll-margin-block:90px}
+</style>
+<script id="a11y-phase2-js">
+(function(){'use strict';
+function init(){
+ const mobile=document.querySelector('.mobile-exact-skin');
+ if(mobile&&!document.querySelector('.a11y-mobile-nav')){
+  const nav=document.createElement('nav');nav.className='a11y-mobile-nav';nav.setAttribute('aria-label','ניווט נגיש במובייל');
+  const entries=[['ראשי','#storeApp'],['מוצרים','#products'],['קטלוגים','#catalogs'],['יצירת קשר',null]];
+  for(const [label,href] of entries){const item=document.createElement(href?'a':'button');item.textContent=label;if(href)item.href=href;else{item.type='button';item.addEventListener('click',()=>{if(typeof window.openContactModal==='function')window.openContactModal()})}nav.append(item)}
+  mobile.insertAdjacentElement('afterend',nav);
+ }
+ const toast=document.querySelector('.cart-toast');if(toast){toast.setAttribute('role','status');toast.setAttribute('aria-live','polite');toast.setAttribute('aria-atomic','true')}
+ const count=document.querySelector('.cart-fab-count');if(count)count.setAttribute('aria-hidden','true');
+ const fab=document.querySelector('.cart-fab');if(fab&&!fab.getAttribute('aria-label'))fab.setAttribute('aria-label','פתיחת סל ההזמנה');
+ // Make the category overlay discoverable as a modal, not just a visually styled panel.
+ const cat=document.getElementById('categoryProductsModal');if(cat){cat.setAttribute('role','dialog');cat.setAttribute('aria-modal','true');cat.setAttribute('aria-label','מוצרים בקטגוריה')}
+ const logo=document.querySelector('.logo img');if(logo&&!logo.getAttribute('alt'))logo.setAttribute('alt','כל בו רן - לגן');
+ const closeSelectors=['.gallery-close','.lb-close','.lb-prev','.lb-next','.cart-close','.product-modal-close','.about-close','.contact-close'];
+ const labels=['סגירת קטלוג','סגירת תמונה מוגדלת','תמונה קודמת','תמונה הבאה','סגירת סל ההזמנה','סגירת פרטי מוצר','סגירת אודות','סגירת יצירת קשר'];
+ closeSelectors.forEach((selector,i)=>document.querySelectorAll(selector).forEach(b=>{if(!b.getAttribute('aria-label'))b.setAttribute('aria-label',labels[i])}));
+ // Product thumbnails are controls; announce the action, not an empty image.
+ document.querySelectorAll('.product-gallery-thumbs button').forEach((b,i)=>{if(!b.getAttribute('aria-label'))b.setAttribute('aria-label','הצגת תמונת מוצר '+(i+1))});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
 </body>
